@@ -1,5 +1,7 @@
 'use strict';
 
+// NOTE:  This example of ES5 classes was not written by me. I have included it here to study it.
+
 /**
  * Person class.
  *

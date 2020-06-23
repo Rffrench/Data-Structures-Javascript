@@ -1,13 +1,8 @@
 //  Classes IN ES6
-
-// ES5 used functions
-
-
-
+// NOTE:  This example of ES6 classes was not written by me. I have included it here to study it.
 
 
 //They can be named or unnamed
-
 // unnamed
 let Rectangle = class {
     constructor(height, width) {
@@ -15,8 +10,8 @@ let Rectangle = class {
         this.width = width;
     }
 };
-console.log(Rectangle.name);
-// output: "Rectangle"
+console.log(Rectangle.name); // output: "Rectangle"
+
 
 // named
 let RectangleNamed = class Rectangle2 {
@@ -25,12 +20,11 @@ let RectangleNamed = class Rectangle2 {
         this.width = width;
     }
 };
-console.log(RectangleNamed.name);
-// output: "Rectangle2"
+console.log(RectangleNamed.name); // output: "Rectangle2"
+
 
 
 // Class constructor example
-
 class MyRectangle {
     constructor(height, width) {
         this.height = height;
@@ -47,12 +41,10 @@ class MyRectangle {
 }
 
 const square = new MyRectangle(10, 10);
-
 console.log(square.area); // 100. Getter applied
 
 
 // EXTENDS
-
 class Animal {
     constructor(name) {
         this.name = name;
