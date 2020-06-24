@@ -91,12 +91,13 @@ class LinkedList {
         // If the head needs to be deleted
         while (this.head && this.head.value === value) {
             this.size -= 1;
-            deletedNode = this.head;
+            deletedNode = this.head; // The node is actually never deleted but it becomes inaccessible
             this.head = this.head.next;
             if (deleteOne) return true;
         };
 
         let currentNode = this.head;
+
 
         // If any node except the head or tail needs to be deleted
         if (currentNode !== null) {
@@ -112,6 +113,7 @@ class LinkedList {
             };
         };
 
+
         // If the tail needs to be deleted
         if (this.tail.value === value) {
             this.tail = currentNode;
@@ -122,6 +124,7 @@ class LinkedList {
             return true;
         };
     }
+
 
     // Converting To and From an Array
     // For convenience, it should be possible to provide an array in the constructor and get a LinkedList of items in that order — similar to the Set constructor.
