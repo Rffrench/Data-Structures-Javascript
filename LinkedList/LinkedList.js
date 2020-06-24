@@ -27,63 +27,9 @@ Disadvantages:
 
 *Note: there is another version of the Linked List called the Doubly Linked List and this one also stores the location of the previous element so it does not only go left to right.
 
-
-
-
-
-
-
-
-head >> first Node
-head.data >> Data of the first Node
-head.next >> next Node
-head.next.data >> data of the next Node
-
-
-
-**Java syntax for Nodes of a linked list**
-class Node {
-    int data;
-    Node next; // null by default
-
-    //constructor
-    Node(int data){
-        this.data = data;
-    }
-}
-
-// Creating Nodes
-Node head = new Node(6); >> Head is the first element. Null next value by default
-Node nodeB = new Node(3);
-Node nodeC = new Node(4);
-Node nodeD = new Node(2);
-Node nodeE = new Node(1);
-
-// Linking Nodes
-head.next = nodeB;  >> Head is the first element
-nodeB.next = nodeC;
-nodeC.next = nodeD;
-nodeD.next = nodeE;
-
-
-
-***The above code is just an example of a simplify version of Linked Lists but it is not a convenient way of creating one. Creating a class that holds all the values and functions is the correct approach***
-
-
-// Get the number of Nodes
-static int countNodes(Node head){
-    int count = 1;
-    Node current = head;
-    while(current.next != null){
-        current = current.next;
-        count+=1;
-    }
-    return count;
-}
-
 */
 
-
+// Reference: https://medium.com/javascript-in-plain-english/implementing-a-linked-list-in-javascript-3f71c83487b5
 
 const LinkedListNode = require('./LinkedListNode');
 
@@ -136,6 +82,47 @@ class LinkedList {
         return this;
     }
 
+    // Delete a Node
+    // By default, our function will delete all nodes of a certain value. But we can pass true as our second argument to just delete the first node we encounter with the given value.
+    delete(value, deleteOne = false) {
+        if (!this.head) return false;
+        let deletedNode = null;
+
+        // If the head needs to be deleted
+        while (this.head && this.head.value === value) {
+            this.size -= 1;
+            deletedNode = this.head;
+            this.head = this.head.next;
+            if (deleteOne) return true;
+        };
+
+        let currentNode = this.head;
+
+        // If any node except the head or tail needs to be deleted
+        if (currentNode !== null) {
+            while (currentNode.next) {
+                if (currentNode.next.value === value) {
+                    this.size -= 1;
+                    deletedNode = currentNode.next;
+                    currentNode.next = currentNode.next.next;
+                    if (deleteOne) return true;
+                } else {
+                    currentNode = currentNode.next;
+                };
+            };
+        };
+
+        // If the tail needs to be deleted
+        if (this.tail.value === value) {
+            this.tail = currentNode;
+        };
+        if (deletedNode === null) {
+            return false;
+        } else {
+            return true;
+        };
+    }
+
     // Converting To and From an Array
     // For convenience, it should be possible to provide an array in the constructor and get a LinkedList of items in that order — similar to the Set constructor.
 
@@ -162,3 +149,52 @@ class LinkedList {
 module.exports = LinkedList
 
 
+
+/*
+head >> first Node
+head.data >> Data of the first Node
+head.next >> next Node
+head.next.data >> data of the next Node
+
+
+
+**Java syntax for Nodes of a linked list**
+class Node {
+    int data;
+    Node next; // null by default
+
+    //constructor
+    Node(int data){
+        this.data = data;
+    }
+}
+
+// Creating Nodes
+Node head = new Node(6); >> Head is the first element. Null next value by default
+Node nodeB = new Node(3);
+Node nodeC = new Node(4);
+Node nodeD = new Node(2);
+Node nodeE = new Node(1);
+
+// Linking Nodes
+head.next = nodeB;  >> Head is the first element
+nodeB.next = nodeC;
+nodeC.next = nodeD;
+nodeD.next = nodeE;
+
+
+***The above code is just an example of a simplify version of Linked Lists but it is not a convenient way of creating one. Creating a class that holds all the values and functions is the correct approach***
+
+
+// Get the number of Nodes
+static int countNodes(Node head){
+    int count = 1;
+    Node current = head;
+    while(current.next != null){
+        current = current.next;
+        count+=1;
+    }
+    return count;
+}
+
+*/
