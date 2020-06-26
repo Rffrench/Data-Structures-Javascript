@@ -12,6 +12,12 @@ The heap is memory set aside for dynamic allocation. Unlike the stack, there's n
 - The size of the heap is set on application startup, but can grow as space is needed (the allocator requests more memory from the operating system).
 - Main issue: Memory fragmentation
 
+- Heaps are usually used for Heap Sort, an efficient sorting algorithm which is very popular! They are a partially ordered binary tree. Each Node can allocate 2 child nodes. Heaps are usually stored as arrays with no index 0
+
+- Max Heap = children are less than the parent node
+- Min Heap = children are greater than the parent node
+
+
 *** ADVANTAGES / DISADVANTAGES ***
 
 Advantages:
@@ -38,72 +44,153 @@ You should use heap when you require to allocate a large block of memory. For ex
 However, If you are working with relatively small variables that are only required until the function using them is alive. Then you need to use the stack, which is faster and easier.
 
 
-*** WHAT IS A PERMUTATION? ***
-
-A Permutation of a collection of elements is the list of all the possible ways you can order the elements. All the possible combinations
-E.g: [1,2,3] = [1,2,3] [1,3,2] [2,1,3] [2,3,1] [3,2,1] [3,1,2]
-
-The number of permutations 'n' can be calculated by the total count factorial n!.
-E.g: N = 3 >> 3*2*1 = 6 permutations (Factorial 3!)
-     N = 4 >> 4*3*2*1 = 24 permutations (Factorial 4!)
-
-*Heap's Algorithm is one way to get all these permutations
-
-
-*** NOTES ABOUT THE ACTUAL ALGORITHM ***
-
-- The algorithm is HARD and UNINTUITIVE. Probably around 99% of the programmers wouldn't be able to come with a solution by their own without looking at the code
-- This is a algorithm you study, not come up with on your own.
-- Recursion is something that is needed to understand it
-
 
 
 Reference:
 https://www.guru99.com/stack-vs-heap.html
 https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap?rq=1
-https://www.youtube.com/watch?v=xghJNlMibX4   >>> This video thoroughly explains the syntax
+https://www.youtube.com/watch?v=dM_JHpfFITs
  */
+
+
 
 // JAVASCRIPT SYNTAX
 
 
-// THis will get all the permutations as an array, each element will be another array of the permutations
-const getPermutations = arr => {
+// left child: i * 2
+// right child: i * 2 + 1
+// parent: i / 2
 
 
-    const output = []; // output that will have the arrays
+// MIN HEAP
+let minHeap = function () {
 
-    // This function will swap the postion of an element of an array based on the indexes.
-    const swapInPlace = (arrToSwap, indexA, indexB) => {
-        const temp = arrToSwap[indexA];
-        arrToSwap[indexA] = arrToSwap[indexB];
-        arrToSwap[indexB] = temp;
-    }
+    let heap = [null];
 
-    // Generating the permutations. 'n' are the initial elements of the collection
-    const generate = (n, heapArr) => {
-        if (n === 1) {
-            output.push(heapArr.slice()); // The array is added to the output. slice() used to make a real copy of it
-            return;
-        } else {
-            generate(n - 1, heapArr); // Recursive function
-
-            for (let i = 0; i < n - 1; i++) {
-                if (n % 2 === 0) { // If it is even we swap the indexes of the array
-                    swapInPlace(heapArr, i, n - 1);
-                } else {
-                    swapInPlace(heapArr, 0, n - 1);
+    this.insert = function (num) {
+        heap.push(sum); // An item is added to the heap
+        if (heap.length > 2) { // If there are more than 2 nodes we check if the values need to be swapped
+            let idx = heap.length - 1;
+            while (heap[idx] < heap[Math.floor(idx / 2)]) { // If the last item of the array is less than its parent we need to move it up. This will keep going until the node is in the correct position i.e smaller than the parent node
+                if (idx >= 1) { // If we reach the root node
+                    [heap[Math.floor(idx / 2)], heap[idx]] = [heap[idx], heap[Math.floor(idx / 2)]]; // ES6 Destructing syntax. We switch the node we have just inserted with the parent node
+                    if (Math.floor(idx / 2) > 1) { // If the parent node is not the root node
+                        idx = Math.floor(idx / 2); // Index will be the node now
+                    } else {
+                        break;
+                    }
                 }
-
-                generate(n - 1, heapArr); // Recursion again
             }
         }
     }
+    this.remove = function () { // We always remove the top node in this case the smallest node
+        let smallest = heap[1];
+        if (heap.length > 2) { // Check if the are more than 2 nodes in the tree
+            heap[1] = heap[heap.length - 1]; // We set the first node of the tree to the last node
+            heap.slice(heap.length - 1); // We shorten the array by 1
+            if (heap.length == 3) {
+                if (heap[1] > heap[2]) { // If the first one is bigger than the second one we switch them
+                    [heap[1], heap[2]] = [heap[2], heap[1]]; // We switch the nodes
+                }
+                return smallest;
+            }
+            // Now if there are more than 2 nodes in the array
+            let i = 1;
+            let left = 2 * i;
+            let right = 2 * i + 1;
+            while (heap[i] >= heap[left] || heap[i] >= heap[right]) { // Here we keep moving down a node
+                if (heap[left] < heap[right]) {
+                    [heap[i], heap[left]] = [heap[left], heap[i]];
+                    i = 2 * 1; // We set the index to be the node that was at the top node and that has been swapped
+                } else {
+                    [heap[i], heap[right]] = [heap[right], heap[i]];
+                    i = 2 * i + 1;
+                }
+                left = 2 * i;
+                right = 2 * i + 1;
+                if (heap[left] == undefined && heap[right] == undefined) {
+                    break;
+                }
+            }
+        } else if (heap.length == 2) {
+            heap.splice(1, 1);
+        } else {
+            return null;
+        }
+        return smallest;
+    }
 
-    generate(arr.length, arr.slice()); // We don't want to manipulate the original array so with slice() we pass a real copy of it
+    this.sort = function () {
+        let result = [];
+        while (heap.length > 1) {
+            result.push(this.remove());
+        }
+        return result;
+    }
+}
 
-    return output;
+
+
+
+// MAX HEAP
+let MaxHeap = function () {
+
+    let heap = [null];
+
+    this.print = () => heap;
+
+    this.insert = function (num) {
+        heap.push(num);
+        if (heap.length > 2) {
+            let idx = heap.length - 1;
+            while (heap[idx] > heap[Math.floor(idx / 2)]) {
+                if (idx >= 1) {
+                    [heap[Math.floor(idx / 2)], heap[idx]] = [heap[idx], heap[Math.floor(idx / 2)]];
+                    if (Math.floor(idx / 2) > 1) {
+                        idx = Math.floor(idx / 2);
+                    } else {
+                        break;
+                    };
+                };
+            };
+        };
+    };
+
+    this.remove = function () {
+        let smallest = heap[1];
+        if (heap.length > 2) {
+            heap[1] = heap[heap.length - 1];
+            heap.splice(heap.length - 1);
+            if (heap.length == 3) {
+                if (heap[1] < heap[2]) {
+                    [heap[1], heap[2]] = [heap[2], heap[1]];
+                };
+                return smallest;
+            };
+            let i = 1;
+            let left = 2 * i;
+            let right = 2 * i + 1;
+            while (heap[i] <= heap[left] || heap[i] <= heap[right]) {
+                if (heap[left] > heap[right]) {
+                    [heap[i], heap[left]] = [heap[left], heap[i]];
+                    i = 2 * i
+                } else {
+                    [heap[i], heap[right]] = [heap[right], heap[i]];
+                    i = 2 * i + 1;
+                };
+                left = 2 * i;
+                right = 2 * i + 1;
+                if (heap[left] == undefined && heap[right] == undefined) {
+                    break;
+                };
+            };
+        } else if (heap.length == 2) {
+            heap.splice(1, 1);
+        } else {
+            return null;
+        };
+        return smallest;
+    };
+
 };
-
-console.log(getPermutations([1, 2, 3, 4]));
 
