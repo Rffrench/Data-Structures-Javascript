@@ -63,7 +63,7 @@ https://www.youtube.com/watch?v=dM_JHpfFITs
 
 
 // MIN HEAP
-let minHeap = function () {
+let MinHeap = function () {
 
     let heap = [null];
 
@@ -120,6 +120,7 @@ let minHeap = function () {
         return smallest;
     }
 
+    // Heap sort
     this.sort = function () {
         let result = [];
         while (heap.length > 1) {
@@ -193,4 +194,3 @@ let MaxHeap = function () {
     };
 
 };
-
