@@ -90,6 +90,5 @@ BFS also explores the graph from a start node s. From that node on, it will expl
 
 
 ## Reference:
-https://www.youtube.com/watch?v=gXgEDyodOJU
-https://medium.com/better-programming/basic-interview-data-structures-in-javascript-graphs-3f9118aeb078
-*/
+- https://www.youtube.com/watch?v=gXgEDyodOJU
+- https://medium.com/better-programming/basic-interview-data-structures-in-javascript-graphs-3f9118aeb078
