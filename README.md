@@ -77,3 +77,4 @@ def find_sum(given_array):
 ## References
 - https://news.codecademy.com/why-data-structures/
 - https://www.youtube.com/watch?v=D6xkbGLQesk&list=PLBZBJbE_rGRV8D7XZ08LK6z-4zPoWzu5H&index=7
+- https://www.youtube.com/watch?v=qCVHH0NtIl4&t=891s
