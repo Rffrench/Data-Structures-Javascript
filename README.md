@@ -13,10 +13,10 @@ Fortunately, most grocery stores have a clear order to the way the store is stoc
 
 Data structures handle four main functions for us:
 
-    Inputting information
-    Processing information
-    Maintaining information
-    Retrieving information
+*    Inputting information
+*    Processing information
+*    Maintaining information
+*    Retrieving information
 
 Inputting is largely concerned with how the data is received. What kind of information can be included? Will the new data be added to the beginning, end, or somewhere in the middle of the existing data? Does an existing point of data need to be updated or destroyed?
 
@@ -38,6 +38,7 @@ Each integer, decimal or string will then take the same amount of Memory.
 Recursion is a way of solving a problem by having a function call itself. 
 Example: factorial function. The function calls itself recursively but once it reaches the min value 1 it goes back again the tree to return the value.
 
+```java
 int fact(int n){
     if(n >= 1){ return n * fact(n-1); } // This function will call itself everytime 
     else { return 1; }
@@ -45,13 +46,34 @@ int fact(int n){
 
 fact(4) -> 4 * fact(3)
 fact(3) -> 3 * fact(2)
-
+```
 
 
 
 # Big O Notation
 
+THey give you one way telling you the time it takes to run your function grows as the size of your input (to your function) grows. 
+
+Time complexity: is a way of showing how the runtime of the function increases. For example with the below function that will sum the elements of the array, as I add more elements the Time complexity will increase (linear time). More elements in the array means more time it will take to complete. O(n) in this case where 'n' is the number of elements in the array
+
+* **Linear Time:** time increases as the function grows --> O(n) 'n' is usually the size of the input
+* **Constant time:** time does not increase it is always the same --> O(1)
+* **Quadratic time:** its exponential. Time increases but not linearly --> O(n²)
+
+
+```python
+given_array = [1,4,3,2,...,10]
+
+# O(n)
+def find_sum(given_array):
+    total = 0 # O(1)
+    for each i in given_array:
+        total += 1 # O(1)
+    return total # O(1)
+```
+
  Big O notation is important because that will tell how long is an algorithm going to take to complete. Always remember is about Time and complexity
 
 ## References
 - https://news.codecademy.com/why-data-structures/
+- https://www.youtube.com/watch?v=D6xkbGLQesk&list=PLBZBJbE_rGRV8D7XZ08LK6z-4zPoWzu5H&index=7
