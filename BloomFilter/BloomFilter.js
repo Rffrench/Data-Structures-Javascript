@@ -1,3 +1,5 @@
+// Implementation
+
 class BloomFilter {
     constructor(size) {
         this.size = size; // Size of the Bloom Filter
